@@ -91,9 +91,10 @@ syn match logXmlEntity       /&#\?\w\+;/
 
 " Levels
 "---------------------------------------------------------------------------
+syntax case ignore
 syn keyword logLevelEmergency EMERGENCY EMERG
 syn keyword logLevelAlert ALERT
-syn keyword logLevelCritical CRITICAL CRIT FATAL
+syn keyword logLevelCritical CRITICAL CRIT FATAL PANIC
 syn keyword logLevelError ERROR ERR FAILURE SEVERE
 syn keyword logLevelWarning WARNING WARN
 syn keyword logLevelNotice NOTICE
@@ -101,7 +102,29 @@ syn keyword logLevelInfo INFO
 syn keyword logLevelDebug DEBUG FINE
 syn keyword logLevelTrace TRACE FINER FINEST
 
-syn match type8 /TYPE_8/
+
+
+" OpenVoxel
+" --------------------------------------------------------------------------
+
+" OV Log Verbosity Level
+syn keyword ovLogLevel_VeryVerbose contained VeryVerbose
+syn keyword ovLogLevel_Verbose contained Verbose
+syn keyword ovLogLevel_Warning contained Warning
+syn keyword ovLogLevel_Debug contained Debug
+syn keyword ovLogLevel_Error contained Error
+syn keyword ovLogLevel_Panic contained Panic
+
+" Ov Log Category name
+syn match ovLogCategory '\[[A-Za-z -_]*\]' contained contains=logBrackets
+
+" OV log line start
+syn region ovLogStart start=/^/ end=/ - / contains=ovLogStart_Date,ovLogStart_Time,ovLogCategory,ovLogLevel_VeryVerbose,ovLogLevel_Verbose,ovLogLevel_Warning,ovLogLevel_Debug,ovLogLevel_Error,ovLogLevel_Panic
+syn match ovLogStart_Date '^\d\{4}-\d\{2}-\d\{2}' contained " Date are not important if it's in the ovLogStart
+syn match ovLogStart_Time '^\d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}:\d\{2}' contained contains=ovLogStart_Date " Time are not important if it's in the ovLogStart
+
+" Match the whole line if the log level is Panic
+syn match ovLogPanic '^\d\{4}-\d\{2}-\d\{2} \d\{2}:\d\{2}:\d\{2} \[[A-Za-z -_]*\] Panic - .*' contains=ovLogCategory
 
 " Highlight links
 "---------------------------------------------------------------------------
@@ -140,7 +163,7 @@ hi def link logXmlCData String
 hi def link logXmlEntity Special
 
 hi def link logOperator Operator
-hi def link logBrackets Comment
+hi def link logBrackets Operator
 hi def link logEmptyLines Comment
 
 hi def link logLevelEmergency ErrorMsg
@@ -153,7 +176,21 @@ hi def link logLevelInfo Repeat
 hi def link logLevelDebug Debug
 hi def link logLevelTrace Comment
 
-hi def link type8 Number
+hi def link ovLogLevel_VeryVerbose StatusLine
+hi def link ovLogLevel_Verbose StatusLine
+hi def link ovLogLevel_Warning WarningMsg
+hi def link ovLogLevel_Debug WarningMsg
+hi def link ovLogLevel_Error ErrorMsg
+hi def link ovLogLevel_Panic ErrorMsg
+
+hi def link ovLogStart Delimiter
+hi def link ovLogStart_Date Comment
+hi def link ovLogStart_Time Comment
+hi def link ovLogCategory markdownH1
+
+
+hi def link ovLogPanic ErrorMsg
+hi def link ovLogPanic Conceal
 
 let b:current_syntax = 'log'
 
