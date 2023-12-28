@@ -101,6 +101,7 @@ syn keyword logLevelInfo INFO
 syn keyword logLevelDebug DEBUG FINE
 syn keyword logLevelTrace TRACE FINER FINEST
 
+syn match type8 /TYPE_8/
 
 " Highlight links
 "---------------------------------------------------------------------------
@@ -152,7 +153,7 @@ hi def link logLevelInfo Repeat
 hi def link logLevelDebug Debug
 hi def link logLevelTrace Comment
 
-
+hi def link type8 Number
 
 let b:current_syntax = 'log'
 
