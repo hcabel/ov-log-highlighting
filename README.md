@@ -1,3 +1,7 @@
+# Forked from: [MTDL9/vim-log-highlighting](https://github.com/MTDL9/vim-log-highlighting)
+
+I've just added new linting rules for [OpenVoxel](https://github.com/hcabel/RustOpenVoxel) log files (my game engine)
+
 # Vim Log Highlighting
 
 ![Log highlighting example](doc/screenshot.jpg)
