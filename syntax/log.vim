@@ -116,7 +116,7 @@ syn keyword ovLogLevel_Error contained Error
 syn keyword ovLogLevel_Panic contained Panic
 
 " Ov Log Category name
-syn match ovLogCategory '\[[A-Za-z -_]*\]' contained contains=logBrackets
+syn match ovLogCategory '\[[A-Za-z \-_]*\]' contained contains=logBrackets
 
 " OV log line start
 syn region ovLogStart start=/^/ end=/ - / contains=ovLogStart_Date,ovLogStart_Time,ovLogCategory,ovLogLevel_VeryVerbose,ovLogLevel_Verbose,ovLogLevel_Warning,ovLogLevel_Debug,ovLogLevel_Error,ovLogLevel_Panic
